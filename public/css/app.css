@@ -1,0 +1,12 @@
+body {
+   padding-top: 58px;
+}
+
+#map, #cluster-map {
+   width: 100%; 
+   height: 300px;
+}
+
+#cluster-map {
+   height: 500px;
+}
