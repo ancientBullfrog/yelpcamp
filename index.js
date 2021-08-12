@@ -44,7 +44,7 @@ mongoose.connect(dbUrl, {
    .catch((err) => console.log('MONGO CONNECTION ERROR:', err));
 
 const app = express();
-const PORT = process.env.PORT || process.argv[2] || 3000;
+const port = process.env.PORT || process.argv[2] || 3000;
 
 // //setup engine to use for ejs files - if not set a default engine is used
 app.engine('ejs', ejsMate);
@@ -163,4 +163,4 @@ app.use((err, req, res, next) => {
 });
 
 // //start server
-app.listen(PORT, () => console.log('LISTENING ON PORT:', PORT));
+app.listen(PORT, () => console.log('LISTENING ON PORT:', port));
