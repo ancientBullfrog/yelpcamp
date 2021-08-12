@@ -125,9 +125,9 @@ passport.deserializeUser(User.deserializeUser());
 //**************************************************************** */
 // // setup global res.locals for messaging
 app.use((req, res, next) => {
-   res.locals.message = req.flash('message');
+   res.locals.message = req.flash('message') || false;
    res.locals.error = req.flash('error'); // if this is not flashed here it is not removed from the session
-   res.locals.user = req.user;
+   res.locals.user = req.user || false;
    console.log('REQ.SESSION', req.session);
    console.log('REQ.QUERY', req.query);
    next();
