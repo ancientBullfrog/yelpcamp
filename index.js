@@ -163,4 +163,4 @@ app.use((err, req, res, next) => {
 });
 
 // //start server
-app.listen(PORT, () => console.log('LISTENING ON PORT:', port));
+app.listen(port, () => console.log('LISTENING ON PORT:', port));
