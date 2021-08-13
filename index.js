@@ -14,8 +14,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
-const helmet = require('helmet');
-const csp = require('./utilities/contentSecurity');
+const { helmet, csp } = require('./utilities/helmet');
 
 const MongoDBStore = require('connect-mongo');
 // PASSPORT
@@ -104,7 +103,6 @@ app.use(mongoSanitize({
 app.use(helmet());
 app.use(csp);
 
-
 // //PASSPORT
 // //auth setup - passport
 app.use(passport.initialize());
@@ -125,9 +123,10 @@ passport.deserializeUser(User.deserializeUser());
 //**************************************************************** */
 // // setup global res.locals for messaging
 app.use((req, res, next) => {
-   res.locals.message = req.flash('message') || false;
+
+   res.locals.message = req.flash('message');
    res.locals.error = req.flash('error'); // if this is not flashed here it is not removed from the session
-   res.locals.user = req.user || false;
+   res.locals.user = req.user;
    console.log('REQ.SESSION', req.session);
    console.log('REQ.QUERY', req.query);
    next();

@@ -25,8 +25,8 @@ const connectSrcUrls = [
 ];
 const fontSrcUrls = [];
 
-
-module.exports = helmet.contentSecurityPolicy({
+module.exports.helmet = helmet;
+module.exports.csp = helmet.contentSecurityPolicy({
    directives: {
       defaultSrc: [],
       connectSrc: ["'self'", ...connectSrcUrls],
@@ -34,6 +34,7 @@ module.exports = helmet.contentSecurityPolicy({
       styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
       workerSrc: ["'self'", "blob:"],
       objectSrc: [],
+      childSrc: ["blob:"],
       imgSrc: [
          "'self'",
          "blob:",
