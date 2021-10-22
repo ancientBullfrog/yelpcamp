@@ -73,6 +73,11 @@ module.exports.createCampground = catchAsync(async (req, res) => {
 /**
  * review 520 12:00 for advice on implementing population - limit and paginate results, update as scroll
  */
+/* finds a campground
+ * populates campground.review
+ * populates campground.review.author
+ * populates campground.author
+ */
 module.exports.showCampground = catchAsync(async (req, res) => {
    const camp = await Campground.findById(req.params.id).populate({
       path: 'reviews',

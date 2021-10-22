@@ -71,7 +71,7 @@ const sessionOptions = {
    cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 1,
       httpOnly: true, //hides session cookies from xss js
-      // secure: true //only works over https
+      secure: true //only works over https
    },
    name: 'setUniqueCookieName', //makes it harder to extract the session cookie by script xss and steal the session
    store
