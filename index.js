@@ -33,14 +33,15 @@ const { campgroundRoutes, reviewRoutes, userRoutes } = require('./routes');
  */
 // const dbUrl = process.env.DB_URL;
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelpcamp';
-mongoose.connect(dbUrl, {
-   useNewUrlParser: true,
-   useUnifiedTopology: true,
-   useFindAndModify: false,
-   useCreateIndex: true
-})
-   .then((res) => console.log("CONNECTED TO MONGODB:", res.connections[0].port))
-   .catch((err) => console.log('MONGO CONNECTION ERROR:', err));
+mongoose
+	.connect(dbUrl, {
+		useNewUrlParser    : true,
+		useUnifiedTopology : true,
+		useFindAndModify   : false,
+		useCreateIndex     : true
+	})
+	.then(res => console.log('CONNECTED TO MONGODB:', res.connections[0].port))
+	.catch(err => console.log('MONGO CONNECTION ERROR:', err));
 
 const app = express();
 const port = process.env.PORT || process.argv[2] || 3000;
@@ -57,24 +58,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
 
-
 const secret = process.env.SECRET || 'thisisnotagoodsecret';
 const store = MongoDBStore.create({
-   mongoUrl: dbUrl,
-   touchAfter: 60 * 60 * 24,
-   secret
+	mongoUrl   : dbUrl,
+	touchAfter : 60 * 60 * 24,
+	secret
 });
 const sessionOptions = {
-   secret,
-   resave: false,
-   saveUninitialized: false, //check 487 - this was set to true, docs recommentd false
-   cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 1,
-      httpOnly: true, //hides session cookies from xss js
-      secure: true //only works over https
-   },
-   name: 'setUniqueCookieName', //makes it harder to extract the session cookie by script xss and steal the session
-   store
+	secret,
+	resave            : false,
+	saveUninitialized : false, //check 487 - this was set to true, docs recommentd false
+	cookie            : {
+		maxAge   : 1000 * 60 * 60 * 24 * 1,
+		httpOnly : true //hides session cookies from xss js
+		// secure: true //only works over https
+	},
+	name              : 'setUniqueCookieName', //makes it harder to extract the session cookie by script xss and steal the session
+	store
 };
 
 //session and flash message - declaring here enables use in router routes
@@ -92,9 +92,11 @@ app.use(flash());
  *  - config additional characters with an array of characters
  */
 //
-app.use(mongoSanitize({
-   replaceWith: 'HACKED'
-}));
+app.use(
+	mongoSanitize({
+		replaceWith : 'HACKED'
+	})
+);
 /** 
  * HELMET - SECURITY MIDDLEWARE
  * Adds several middleware functions to manipulate and add headers
@@ -107,10 +109,10 @@ app.use(csp);
 // //auth setup - passport
 app.use(passport.initialize());
 app.use(passport.session()); // must be used AFTER express-session() - required to persist sessions
-// /** 
+// /**
 //  * @User.authenticate() is a function added to the user model by passport-local-mongoose
 //  * - all it needs to be is a callback to varify a user
-//  * 
+//  *
 //  * -- see auth in documents for a breakdown of the structure
 //  */
 passport.use(new LocalStrategy(User.authenticate()));
@@ -123,13 +125,12 @@ passport.deserializeUser(User.deserializeUser());
 //**************************************************************** */
 // // setup global res.locals for messaging
 app.use((req, res, next) => {
-
-   res.locals.message = req.flash('message');
-   res.locals.error = req.flash('error'); // if this is not flashed here it is not removed from the session
-   res.locals.user = req.user;
-   console.log('REQ.SESSION', req.session);
-   console.log('REQ.QUERY', req.query);
-   next();
+	res.locals.message = req.flash('message');
+	res.locals.error = req.flash('error'); // if this is not flashed here it is not removed from the session
+	res.locals.user = req.user;
+	console.log('REQ.SESSION', req.session);
+	console.log('REQ.QUERY', req.query);
+	next();
 });
 
 // //router
@@ -139,14 +140,14 @@ app.use('/', userRoutes);
 
 // // home page
 app.get('/', async (req, res) => {
-   res.render('home');
+	res.render('home');
 });
 
 // //404
 // //app.use also works as it is called on every request and can be mounted to a path -lesson 442
 // // app.all('*') seems more appropriate to routes
 app.all('*', (req, res, next) => {
-   next(new ExpressError(`Page Not Found ${req.originalUrl} method ${req.method}`, 404));
+	next(new ExpressError(`Page Not Found ${req.originalUrl} method ${req.method}`, 404));
 });
 
 // //Error handlers
@@ -155,10 +156,10 @@ app.all('*', (req, res, next) => {
 // // ultimately move flashing to errorHandler.js
 
 app.use((err, req, res, next) => {
-   console.log('ERROR HANDLER!!!', err);
-   const { statusCode = 500 } = err;
-   if (!err.message) err.message = 'Oh No, Something Went Wrong!';
-   res.status(statusCode).render('error', { err });
+	console.log('ERROR HANDLER!!!', err);
+	const { statusCode = 500 } = err;
+	if (!err.message) err.message = 'Oh No, Something Went Wrong!';
+	res.status(statusCode).render('error', { err });
 });
 
 // //start server
