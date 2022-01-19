@@ -5,16 +5,13 @@ const { descriptors, places } = require('./seedHelpers');
 const { geocode } = require('../utilities');
 
 console.log(process.env);
-// 
+
 mongoose
-	.connect(
-		'mongodb://localhost:27017/yelpcamp',
-		{
-			useNewUrlParser    : true,
-			useUnifiedTopology : true,
-			useFindAndModify   : false
-		}
-	)
+	.connect('mongodb://localhost:27017/yelpcamp', {
+		useNewUrlParser    : true,
+		useUnifiedTopology : true,
+		useFindAndModify   : false
+	})
 	.then(() => console.log('CONNECTED TO MONGODB:', mongoose.connection.port))
 	.catch(err => console.log('MONGO CONNECTION ERROR:\n', err));
 
