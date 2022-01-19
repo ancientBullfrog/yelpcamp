@@ -5,10 +5,10 @@ const { descriptors, places } = require('./seedHelpers');
 const { geocode } = require('../utilities');
 
 console.log(process.env);
-// mongodb://localhost:27017/yelpcamp
+// 
 mongoose
 	.connect(
-		'mongodb+srv://test-user:ZDkmYOnR80tLJN6i@cluster0.kxfta.mongodb.net/yelpcamp?retryWrites=true&w=majority',
+		'mongodb://localhost:27017/yelpcamp',
 		{
 			useNewUrlParser    : true,
 			useUnifiedTopology : true,
