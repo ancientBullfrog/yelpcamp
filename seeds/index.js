@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Campground = require('../models/campground');
 const cities = require('./cities');
 const { descriptors, places } = require('./seedHelpers');
-const { geocode } = require('../utilities');
 
 console.log(process.env);
 
