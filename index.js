@@ -130,6 +130,7 @@ app.use((req, res, next) => {
 	res.locals.user = req.user;
 	console.log('REQ.SESSION', req.session);
 	console.log('REQ.QUERY', req.query);
+	console.log('REQ.origUrl', req.originalUrl);
 	next();
 });
 

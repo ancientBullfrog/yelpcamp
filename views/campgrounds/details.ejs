@@ -4,12 +4,10 @@
 <link rel="stylesheet" href="/css/starrating.css">
 
 <div class="row">
-   <h1>DETAILS <%= camp.author.username %></h1>
+   <h1>DETAILS</h1>
 
    <div class="col-6">
       <div class="card mb-3">
-         <div id="map"></div>
-
          <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                <% camp.images.forEach((img, i) => {%>
@@ -33,6 +31,7 @@
             </button>
             <% } %>
          </div>
+         <div id="map"></div>
 
          <div class="card-body">
             <h5 class="card-title"><%= camp.title.toUpperCase() %></h5>
@@ -41,6 +40,7 @@
          <ul class="list-group list-group-flush">
             <li class="list-group-item"><%= camp.description %></li>
             <li class="list-group-item">£<%= camp.price %> Per Night</li>
+            <li class="list-group-item">Added By: <%= camp.author.username %></li>
          </ul>
          <% if(user && camp.author.equals(user._id)){ %>
          <div class="card-body">
