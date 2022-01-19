@@ -5,12 +5,16 @@ const { descriptors, places } = require('./seedHelpers');
 const { geocode } = require('../utilities');
 
 console.log(process.env);
+// mongodb://localhost:27017/yelpcamp
 mongoose
-	.connect('mongodb://localhost:27017/yelpcamp', {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false
-	})
+	.connect(
+		'mongodb+srv://test-user:ZDkmYOnR80tLJN6i@cluster0.kxfta.mongodb.net/yelpcamp?retryWrites=true&w=majority',
+		{
+			useNewUrlParser    : true,
+			useUnifiedTopology : true,
+			useFindAndModify   : false
+		}
+	)
 	.then(() => console.log('CONNECTED TO MONGODB:', mongoose.connection.port))
 	.catch(err => console.log('MONGO CONNECTION ERROR:\n', err));
 
@@ -31,7 +35,7 @@ const seedDB = async num => {
 				type        : 'Point',
 				coordinates : [ longitude, latitude ]
 			},
-			author      : '610aaa56eeb33e09436a0b3b',
+			author      : '61e80a7a48110d001626e841',
 			title       : `${sample(descriptors)} ${sample(places)}`,
 			price       : (Math.floor(Math.random() * 10 ** 4) + 20) / 10 ** 2,
 			location    : `${city}, ${state}`,
@@ -41,7 +45,8 @@ const seedDB = async num => {
 				{
 					//set to default image url
 					url      :
-						'https://res.cloudinary.com/picklewaffle/image/upload/v1628088972/yelpcamp/bc94chuhb4s3pgzmrrbs.jpg',
+						'https://res.cloudinary.com/picklewaffle/image/upload/v1629126217/yelpcamp/cfm1ej4jiq1vdasjec0m.jpg',
+
 					filename : 'yelpcamp/bc94chuhb4s3pgzmrrbs'
 				}
 			]

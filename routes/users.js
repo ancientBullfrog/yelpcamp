@@ -4,12 +4,10 @@ const { renderRegisterForm, registerUser, renderLoginForm, loginUser, logoutUser
 const passport = require('passport');
 const router = express.Router();
 
-
-router.route('/login')
-   .get(renderLoginForm)
-   .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
-      loginUser
-   );
+router
+	.route('/login')
+	.get(renderLoginForm)
+	.post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), loginUser);
 
 /**
  * clear req.session.returnTo incase user navigates away without logging in
@@ -17,10 +15,7 @@ router.route('/login')
  */
 router.use(clearReturnTo);
 
-router.route('/register/new')
-   .get(renderRegisterForm)
-   .put(validateUser, registerUser);
-
+router.route('/register/new').get(renderRegisterForm).put(validateUser, registerUser);
 
 router.get('/logout', isAuthenticated, logoutUser);
 

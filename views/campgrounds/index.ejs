@@ -7,7 +7,7 @@
 <% for (let campground of campgrounds){%>
 <div class="card mb-3">
    <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
          <img class="img-fluid" alt="" src="<%=campground.images.length ? campground.images[Math.floor(Math.random() * campground.images.length)].url : 'https://res.cloudinary.com/picklewaffle/image/upload/v1628088972/yelpcamp/bc3xkqynbczkn6y1ih8e.jpg'%>">
       </div>
       <div class="col-md-8">
@@ -26,6 +26,7 @@
 
 <!-- change to fetch from client js? then set script-src to block inline scripts -->
 <script nonce="2726c7f26c">
+   // this data would be cleaner to pass through via fetch on the clusterMap.js from an /api endpoint
    const mapToken = '<%-process.env.MAPBOX_TOKEN%>'
    const campgrounds = {
       features: <%-JSON.stringify(campgrounds) %>
