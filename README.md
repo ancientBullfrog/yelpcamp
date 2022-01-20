@@ -1,3 +1,5 @@
+# Yelpcamp
+
 This is the end of course project created in The Web Development Bootcamp by Colt Steele. It is a resource for campsites where users can upload and review the sites they have been to.
 
 The following aspects were covered:
