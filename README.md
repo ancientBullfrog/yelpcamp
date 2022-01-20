@@ -12,5 +12,5 @@ The following aspects were covered:
 - Image storage and manipulation with Cloudinary
 - Displaying a location with Mapbox
 
-The site can be viewed here; https://mywifemademejoin-yelpcamp.herokuapp.com/
+The site can be viewed here; https://mywifemademejoin-yelpcamp.herokuapp.com/ - the initial hit could take up to 30 seconds to load if the app is 'sleeping'.
 
